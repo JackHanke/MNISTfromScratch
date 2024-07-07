@@ -65,12 +65,7 @@ class Network:
             m = activations[layer_index-1].shape[1] # batch_size
             weight_gradient = (np.dot(delta, activations[layer_index-1].transpose()))
             bias_gradient = (delta).mean(axis=1, keepdims=True)
-            # print('begin')
-            # print(weight_gradient.shape)
-            # print(bias_gradient.shape)
-            # print(self.weights[layer_index].shape)
-            # print(self.biases[layer_index].shape)
-            # print('end')
+            
             self.weights[layer_index] -= (learning_rate/m) * weight_gradient
             self.biases[layer_index] -= (learning_rate) * bias_gradient
             # computes (layer_index - 1) delta vector
@@ -109,17 +104,17 @@ if __name__ == '__main__':
         k = 10 # k-hot value
 
         # load train
-        # training_images_filepath = './data/train-images-idx3-ubyte/train-images-idx3-ubyte'
-        # training_labels_filepath = './data/train-labels-idx1-ubyte/train-labels-idx1-ubyte'
-        training_images_filepath = '~/vault/software/mnist/data/train-images-idx3-ubyte/train-images-idx3-ubyte'
-        training_labels_filepath = '~/vault/software/mnist/data/train-labels-idx1-ubyte/train-labels-idx1-ubyte'
+        training_images_filepath = './data/train-images-idx3-ubyte/train-images-idx3-ubyte'
+        training_labels_filepath = './data/train-labels-idx1-ubyte/train-labels-idx1-ubyte'
+        # training_images_filepath = '~/vault/software/mnist/data/train-images-idx3-ubyte/train-images-idx3-ubyte'
+        # training_labels_filepath = '~/vault/software/mnist/data/train-labels-idx1-ubyte/train-labels-idx1-ubyte'
         x_train, y_train = read_images_labels(training_images_filepath, training_labels_filepath)
 
         # load test
-        # test_images_filepath = './data/t10k-images-idx3-ubyte/t10k-images-idx3-ubyte'
-        # test_labels_filepath = './data/t10k-labels-idx1-ubyte/t10k-labels-idx1-ubyte'
-        test_images_filepath = '~/vault/software/mnist/data/t10k-images-idx3-ubyte/t10k-images-idx3-ubyte'
-        test_labels_filepath = '~/vault/software/mnist/data/t10k-labels-idx1-ubyte/t10k-labels-idx1-ubyte'
+        test_images_filepath = './data/t10k-images-idx3-ubyte/t10k-images-idx3-ubyte'
+        test_labels_filepath = './data/t10k-labels-idx1-ubyte/t10k-labels-idx1-ubyte'
+        # test_images_filepath = '~/vault/software/mnist/data/t10k-images-idx3-ubyte/t10k-images-idx3-ubyte'
+        # test_labels_filepath = '~/vault/software/mnist/data/t10k-labels-idx1-ubyte/t10k-labels-idx1-ubyte'
         x_test, y_test = read_images_labels(test_images_filepath, test_labels_filepath)
 
         # reformat data for model
@@ -146,9 +141,9 @@ if __name__ == '__main__':
         network = Network(dims=(784,15,10), activation_funcs = [(sigmoid, sigmoid_prime),(sigmoid, sigmoid_prime)], loss=(mse_loss, mse_loss_prime), cost=cost, seed=1)
         
         # train on data with following parameters
-        epochs = 3
-        learning_rate = 0.01
-        batch_size = 10
+        epochs = 300
+        learning_rate = 0.1
+        batch_size = 5
 
         np.set_printoptions(suppress=True, linewidth = 150)
 
